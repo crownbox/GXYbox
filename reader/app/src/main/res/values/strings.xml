@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Reader</string>
+    <string name="search">搜索</string>
+    <string name="warning">请输入完整的书名</string>
+</resources>

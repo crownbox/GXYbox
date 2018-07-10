@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -19,11 +20,12 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn;
     private EditText searchView;
-    private TextView textView;
+    private ListView listView;
     private String bookName;
     private Spider spider;
     @Override
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn=findViewById(R.id.button_search);
-        textView=findViewById(R.id.textview_result);
+        listView=findViewById(R.id.listview_booklist);
         searchView=findViewById(R.id.edittext_searchview);
         btn.setOnClickListener(this);
     }
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bookName=searchView.getText().toString();
                 spider=new Spider(bookName, new SpiderCallBack() {
                     @Override
-                    public void success() {
+                    public void success(List data) {
 
                     }
                     @Override
@@ -55,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 spider.start();
                 break;
             case R.id.edittext_searchview:
-                break;
-            case R.id.textview_result:
                 break;
         }
     }

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn=findViewById(R.id.button_search);
         textView=findViewById(R.id.textview_result);
         searchView=findViewById(R.id.edittext_searchview);
-
+        btn.setOnClickListener(this);
     }
 
 
@@ -47,13 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void success() {
 
                     }
-
                     @Override
                     public void failed() {
 
                     }
                 });
-                spider.run();
+                spider.start();
                 break;
             case R.id.edittext_searchview:
                 break;

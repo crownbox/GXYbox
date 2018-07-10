@@ -5,6 +5,7 @@ import android.util.Log;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -20,13 +21,14 @@ public class Spider extends Thread {
     private SpiderCallBack back;
 
     public Spider(String bookName,SpiderCallBack arg) {
-        name=bookName;
+        //name=bookName;
+        name="神仙道";
         this.back=arg;
     }
 
     @Override
     public void run() {
-        if(null!=name) {
+        if(null!=name&&!name.equals("")) {
             init(name);
             back.success();
         }else{
@@ -44,15 +46,58 @@ public class Spider extends Thread {
                     .cookie("auth", "token")
                     .timeout(30000)
                     .get();
-            Elements elements=document.select("div");
-            for (Element e:elements){
-                if(e.hasClass("bookbox")){
-                    Elements elements1=e.select("")
+
+            Elements elements=document.getElementsByAttributeValue("class","type_show");
+
+
+            for(Element e:elements){
+                for(Element node:e.children()) {
+                    String attrValue = node.attr("class");
+                    if (attrValue.equals("bookbox")) {
+                        for(Element end0:node.children()){
+                            if(end0.attr("class").equals("p10")) {
+                                for(Element end:end0.children()) {
+                                    if (end.attr("class").equals("bookimg")) {
+                                        Log.e("reader", "img:" + end.selectFirst("img").attr("src"));
+                                    } else {
+                                        StringBuilder sb=new StringBuilder();
+                                        int j=0;
+                                        for(Element e5:end.children()){
+
+                                            switch (j){
+                                                case 0:
+                                                    sb.append("书名：");
+                                                    sb.append(e5.text());
+                                                    break;
+                                                case 1:
+                                                    sb.append(e5.text());
+                                                    break;
+                                                case 2:
+                                                    sb.append(e5.text());
+                                                    break;
+                                                case 3:
+                                                    break;
+                                                case 4:
+                                                    break;
+                                            }
+                                            j++;
+
+                                        }
+                                        Log.e("reader",  sb.toString());
+                                    }
+                                }
+                            }
+
+                        }
+
+                    } else {
+                        Log.e("reader", "attrs:" + attrValue);
+                    }
                 }
             }
-            String list=element.attr("div");
+
         }catch (IOException e){
-            Log.e("gxy","error:"+e.getLocalizedMessage());
+            Log.e("reader",e.getLocalizedMessage());
         }
     }
 }

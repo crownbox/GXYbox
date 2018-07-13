@@ -7,6 +7,6 @@ import android.os.Environment;
  */
 
 public class Const {
-    public static final String PATH_MAIN= Environment.getExternalStorageDirectory().getAbsolutePath()+"/com.gxy.reader";
+    public static final String PATH_MAIN= Environment.getExternalStorageDirectory().getAbsolutePath()+"/com.gxy.reader/";
 
 }

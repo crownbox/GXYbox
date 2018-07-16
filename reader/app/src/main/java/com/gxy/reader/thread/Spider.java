@@ -56,7 +56,8 @@ public class Spider extends Thread {
             praseElements(element.first());
 
         }catch (IOException e){
-            Log.e("reader",e.getLocalizedMessage());
+            back.failed();
+
         }
     }
 
@@ -67,7 +68,7 @@ public class Spider extends Thread {
                 map=new HashMap<>();
                 for (Element end : element.children()) {
                     if (end.attr("class").equals("bookimg")) {
-                        map.put("img",end.selectFirst("img").attr("src"));
+                        map.put("img",URL+end.selectFirst("img").attr("src"));
                         Log.e("reader", "img:" + end.selectFirst("img").attr("src"));
                     } else {
                         StringBuilder sb = new StringBuilder();
@@ -78,7 +79,7 @@ public class Spider extends Thread {
                                     sb.append("书名：");
                                     map.put("bookname",e5.text());
                                     map.put("url",e5.selectFirst("a").attr("href"));
-                                    sb.append(e5.text()+"/r");
+                                    sb.append(e5.text());
                                     sb.append("链接：");
                                     sb.append(e5.selectFirst("a").attr("href"));
                                     break;

@@ -7,8 +7,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.FileIOUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.eschao.android.widget.pageflip.Page;
 import com.eschao.android.widget.pageflip.PageFlip;
 import com.eschao.android.widget.pageflip.PageFlipState;
@@ -21,7 +25,7 @@ import java.io.File;
  */
 
 public class SinglePageRender extends PageRender {
-
+    private int CurrentPage=1;
     public SinglePageRender(Context context, PageFlip pageFlip, Handler handler, int pageNo) {
         super(context, pageFlip, handler, pageNo);
     }
@@ -160,7 +164,6 @@ public class SinglePageRender extends PageRender {
         else {
             return false;
         }
-
     }
 
 
@@ -170,6 +173,7 @@ public class SinglePageRender extends PageRender {
      * @param number page number
      */
     private void drawPage(int number) {
+        LogUtils.e("drawPage"+number);
         final int width = mCanvas.getWidth();
         final int height = mCanvas.getHeight();
         Paint p = new Paint();
@@ -189,12 +193,38 @@ public class SinglePageRender extends PageRender {
         p.setAntiAlias(true);
         p.setShadowLayer(5.0f, 8.0f, 8.0f, Color.BLACK);
         p.setTextSize(fontSize);
-        String text = String.valueOf(FileIOUtils.readFile2String(new File(Const.PATH_MAIN+"book.txt"),"gbk"));
-        float textWidth = p.measureText(text);
-        float y = height - p.getTextSize() - 20;
-        mCanvas.drawText(text, 0, p.getTextSize(), p);
 
-        if (number <= 1) {
+        String text = String.valueOf(FileIOUtils.readFile2String(new File(Const.PATH_MAIN+"/book.txt"),"gbk"));
+        int textLength=text.length();
+        int screenWidth= ScreenUtils.getScreenWidth();
+        int screenHeight=ScreenUtils.getScreenHeight();
+
+        int rowNum=(int)Math.floor(screenHeight/(fontSize+10));//每页行数,减去1是为因为最下面的一行字会被遮住半个，索性去掉，搬到第二页去,加10是为了每行之间有10个dp的间距
+
+        int lineTextNum=screenWidth/fontSize;//每行字数
+
+        int pageTextNum=lineTextNum*rowNum;//每页总字数
+        int rows=textLength/lineTextNum;//行数等于总字数除以每行字数
+
+        int begin=(number-1)*pageTextNum;
+        int end=lineTextNum+begin;
+
+        int x=0;
+        int y=0+ BarUtils.getStatusBarHeight();
+        for(int i=0;i<rowNum;i++) {
+         //   float textWidth = p.measureText(text);
+         //   float y = height - p.getTextSize() - 20;
+         //   mCanvas.drawText(text.substring(begin,end), 0, p.getTextSize(), p);
+            mCanvas.drawText(text,begin,end,x,y,p);
+            y+=fontSize+10;
+            begin=end;
+            end+=lineTextNum;
+            if(end>textLength){
+                end=textLength;
+            }
+        }
+
+       /* if (number <= 1) {
             String firstPage = "The First Page";
             p.setTextSize(calcFontSize(16));
             float w = p.measureText(firstPage);
@@ -207,6 +237,6 @@ public class SinglePageRender extends PageRender {
             float w = p.measureText(lastPage);
             float h = p.getTextSize();
             mCanvas.drawText(lastPage, (width - w) / 2, y + 5 + h, p);
-        }
+        }*/
     }
 }

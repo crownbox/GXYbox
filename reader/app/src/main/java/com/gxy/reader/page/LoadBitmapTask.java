@@ -86,19 +86,9 @@ public final class LoadBitmapTask implements Runnable {
 
         // init all available bitmaps
         mPortraitBGs = new int[][] {
-                new int[] {R.drawable.p1_480, R.drawable.p2_480, R.drawable.p3_480,
-                        R.drawable.p4_480, R.drawable.p5_480, R.drawable.p6_480,
-                        R.drawable.p7_480, R.drawable.p8_480, R.drawable.p9_480,
-                        R.drawable.p10_480},
-                new int[] {R.drawable.p1_720, R.drawable.p2_720, R.drawable.p3_720,
-                        R.drawable.p4_720, R.drawable.p5_720, R.drawable.p6_720,
-                        R.drawable.p7_720, R.drawable.p8_720, R.drawable.p9_720,
-                        R.drawable.p10_720},
-                new int[] {R.drawable.p1_1080, R.drawable.p2_1080,
-                        R.drawable.p3_1080, R.drawable.p4_1080,
-                        R.drawable.p5_1080, R.drawable.p6_1080,
-                        R.drawable.p7_1080, R.drawable.p8_1080,
-                        R.drawable.p9_1080, R.drawable.p10_1080}
+                new int[] {R.drawable.p1_480},
+                new int[] {R.drawable.p1_720},
+                new int[] {R.drawable.p1_1080}
         };
     }
 
@@ -114,7 +104,6 @@ public final class LoadBitmapTask implements Runnable {
             if (mQueue.size() > 0) {
                 b = mQueue.pop();
             }
-
             notify();
         }
 

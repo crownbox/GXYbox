@@ -8,16 +8,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by guxiye on 2018/9/19.
+ * @author Created by guxiye on 2018/9/19.
  */
 @Getter
 @Setter
 public class Book {
-    //书本总字数
+    /***
+     * 书本总字数
+      */
     public int textNum;
-    //内容
+    /***
+     *  内容
+     */
     public String content;
-    //内容
+    /***内容
+     *
+     */
     public byte[] contentArray;
     public Book(String path) {
         contentArray=FileIOUtils.readFile2BytesByMap(path);

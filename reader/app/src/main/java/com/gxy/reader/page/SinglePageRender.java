@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 
@@ -176,13 +177,13 @@ public class SinglePageRender extends PageRender {
         final int height = mCanvas.getHeight();
         Paint p = new Paint();
         p.setFilterBitmap(true);
-        mCanvas.drawColor(Color.WHITE);
+    //    mCanvas.drawColor(Color.WHITE);
         // 1. draw background bitmap
-      //  Bitmap background = LoadBitmapTask.get(mContext).getBitmap();
-      //  Rect rect = new Rect(0, 0, width, height);
-      //  mCanvas.drawBitmap(background, null, rect, p);
-      //  background.recycle();
-      //  background = null;
+        Bitmap background = LoadBitmapTask.get(mContext).getBitmap();
+        Rect rect = new Rect(0, 0, width, height);
+        mCanvas.drawBitmap(background, null, rect, p);
+        background.recycle();
+        background = null;
 
         // 2. draw page number
         int fontSize = calcFontSize(24);

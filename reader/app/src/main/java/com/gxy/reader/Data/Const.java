@@ -1,4 +1,4 @@
-package com.gxy.reader.Data;
+package com.gxy.reader.data;
 
 import android.os.Environment;
 

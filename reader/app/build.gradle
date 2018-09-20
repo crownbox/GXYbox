@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    compile "org.projectlombok:lombok:1.18.0"
     compile 'com.github.eschao:android-PageFlip:1.0.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.blankj:utilcode:1.17.2'

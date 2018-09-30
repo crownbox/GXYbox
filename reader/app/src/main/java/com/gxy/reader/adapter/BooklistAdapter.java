@@ -21,6 +21,12 @@ import java.util.List;
  */
 
 public class BooklistAdapter extends BaseAdapter{
+    public static final String IMG="img";
+    public static final String BOOKNAME="bookname";
+    public static final String AUTHOR="author";
+    public static final String KIND="kind";
+    public static final String URL="url";
+
     private LayoutInflater inflater;
     private List<HashMap<String,String>> data;
     public  BooklistAdapter(Context mContext, List arg){
@@ -56,10 +62,10 @@ public class BooklistAdapter extends BaseAdapter{
         }else{
             holder=(ViewHolder) convertView.getTag();
         }
-        String url=data.get(position).get("img");
+        String url=data.get(position).get(IMG);
         Picasso.get().load(url).resize(250,300).into(holder.imageView);
-        holder.textView_name.setText(data.get(position).get("bookname"));
-        holder.textView_author.setText(data.get(position).get("author"));
+        holder.textView_name.setText(data.get(position).get(BOOKNAME));
+        holder.textView_author.setText(data.get(position).get(AUTHOR));
         Log.d("reader",url);
         return convertView;
     }

@@ -41,17 +41,17 @@ public class MApplication extends Application {
                 public void onGranted(List<String> permissionsGranted) {//获取到了权限
                     for(String s:permissionsGranted){
                         //TODO 完善判断逻辑
-                        Log.d("gxy","granted:"+s);
+                        LogUtils.e("gxy","granted:"+s);
                     }
                 }
 
                 @Override
                 public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
                     for(String s:permissionsDeniedForever){//没获取到权限
-                        Log.d("gxy","den1:"+s);
+                        LogUtils.e("gxy","den1:"+s);
                     }
                     for(String s:permissionsDenied){
-                        Log.d("gxy","den2:"+s);
+                        LogUtils.e("gxy","den2:"+s);
                     }
                 }
             }).request();
